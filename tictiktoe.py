@@ -6,6 +6,40 @@ mansLogs.title("TicTacToe")
 speletajsX=True
 count=0
 winner=False
+
+
+def reset():
+     btn1.config(state=NORMAL)
+     btn2.config(state=NORMAL)
+     btn3.config(state=NORMAL)
+     btn4.config(state=NORMAL)
+     btn5.config(state=NORMAL)
+     btn6.config(state=NORMAL)
+     btn7.config(state=NORMAL)
+     btn8.config(state=NORMAL)
+     btn9.config(state=NORMAL)
+     btn1["text"]=" "
+     btn2["text"]=" "
+     btn3["text"]=" "
+     btn4["text"]=" "
+     btn5["text"]=" "
+     btn6["text"]=" "
+     btn7["text"]=" "
+     btn8["text"]=" "
+     btn9["text"]=" "
+
+def disableButtons():
+     btn1.config(state=DISABLED)
+     btn2.config(state=DISABLED)
+     btn3.config(state=DISABLED)
+     btn4.config(state=DISABLED)
+     btn5.config(state=DISABLED)
+     btn6.config(state=DISABLED)
+     btn7.config(state=DISABLED)
+     btn8.config(state=DISABLED)
+     btn9.config(state=DISABLED)
+
+
 def checkWinner():
     global winner 
     if (btn1["text"]=="X" and btn2["text"]=="X" and btn3["text"]=="X" or 
@@ -19,7 +53,7 @@ def checkWinner():
         ):
             winner=True
             messagebox.showinfo("TicTacToe","X speletajs uzvareeja")
-
+            disableButtons()
     elif (btn1["text"]=="0" and btn2["text"]=="0" and btn3["text"]=="0" or 
         btn4["text"]=="0" and btn5["text"]=="0" and btn6["text"]=="0" or
         btn7["text"]=="0" and btn8["text"]=="0" and btn9["text"]=="0" or
@@ -31,6 +65,8 @@ def checkWinner():
         ):
             winner=True
             messagebox.showinfo("TicTacToe","0 speletajs uzvareeja")
+            disableButtons()
+
 
 def btnClick(button):
     global speletajsX,count
@@ -39,11 +75,12 @@ def btnClick(button):
         button["text"]="X"
         speletajsX=False
         count+=1
-
+      
     elif button["text"]==" "and speletajsX==False:
         button["text"]="0"
         speletajsX=True
         count+=1
+    
     else:
         messagebox.showerror("Tictactoe","Seit kads ir iekliksksksisks")
     checkWinner()
@@ -60,6 +97,15 @@ btn6=Button(mansLogs,text=" ",width=6,height=3,font=("Helvica",24),command=lambd
 btn7=Button(mansLogs,text=" ",width=6,height=3,font=("Helvica",24),command=lambda:btnClick(btn7))
 btn8=Button(mansLogs,text=" ",width=6,height=3,font=("Helvica",24),command=lambda:btnClick(btn8))
 btn9=Button(mansLogs,text=" ",width=6,height=3,font=("Helvica",24),command=lambda:btnClick(btn9))
+
+galvenaizvelne=Menu(mansLogs)
+mansLogs.config(menu=galvenaizvelne)
+
+opcijas=Menu(galvenaizvelne,tearoff=False)
+galvenaizvelne.add_cascade(label="opcijas",menu=opcijas)
+
+opcijas.add_command(label="jauna spele",command=reset)
+opcijas.add_command(label="iziet",command=mansLogs.quit)
 
 btn1.grid(row=0,column=0)
 btn2.grid(row=0,column=1)
